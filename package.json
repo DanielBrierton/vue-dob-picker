@@ -3,7 +3,6 @@
   "version": "1.0.1",
   "description": "A simple Vue day, month and year date picker",
   "author": "Daniel Brierton <daniel@brierton.me>",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
