@@ -1,0 +1,12 @@
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+deployment:
+  production:
+    branch: master
+    commands:
+      - git config --global user.email "daniel@brierton.me"
+      - git config --global user.name "Daniel Brierton"
+      - npm version patch -m "Release %s [skip ci]"
+      - git push
+      - npm publish
