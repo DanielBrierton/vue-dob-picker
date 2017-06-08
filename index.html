@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>vue-dob-picker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+      body {
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div>
+        <h1>{{ date.toDateString() }}</h1>
+        <h2>Standard</h2>
+        <vue-dob-picker v-model="date"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>Bootstrap</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>No labels</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small" show-labels="false"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" show-labels="false"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>Short Month Format</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="short"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="short"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>Long Month Format</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>Chinese Long Month Format</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" locale="zh-cn"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" locale="zh-cn"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>Custom Proportions</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :proportions="[1, 2, 1]"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :proportions="[1, 2, 1]"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
