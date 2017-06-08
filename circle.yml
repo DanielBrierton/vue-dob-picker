@@ -9,9 +9,6 @@ deployment:
     branch: master
     commands:
       - rm -rf ./dist/ ./docs/
-      - npm run build
-      - npm run build-example
-      - git add docs/
       - git config --global user.email "daniel@brierton.me"
       - git config --global user.name "Daniel Brierton"
       - npm version patch -m "Release %s [skip ci]"
