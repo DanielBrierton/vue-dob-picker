@@ -12,7 +12,7 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "preversion": "npm run build && npm run build-example && git add docs/"
+    "preversion": "rm -rf ./dist/ ./docs/ && npm run build && npm run build-example && git add docs/"
   },
   "peerDependencies": {
     "vue": "^2.3.3"
