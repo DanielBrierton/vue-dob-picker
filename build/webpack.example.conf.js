@@ -4,27 +4,27 @@ var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
-  : config.build.env
+  : config.buildExample.env
 
 var webpackConfig = merge(baseWebpackConfig, {
-  entry: './src/index.js',
+  entry: './index.js',
   module: {
     rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
+      sourceMap: config.buildExample.productionSourceMap,
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.buildExample.productionSourceMap ? '#source-map' : false,
   output: {
-    path: path.resolve('dist') + '/',
-    filename: 'vue-dob-picker.js',
-    library: 'VueDobPicker',
-    libraryTarget: 'umd'
+    path: path.resolve('docs') + '/',
+    publicPath: './',
+    filename: 'index.js'
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -48,10 +48,15 @@ var webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
+    }),
   ]
 })
 
-if (config.build.productionGzip) {
+if (config.buildExample.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackConfig.plugins.push(
@@ -60,7 +65,7 @@ if (config.build.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
+        config.buildExample.productionGzipExtensions.join('|') +
         ')$'
       ),
       threshold: 10240,
@@ -69,7 +74,7 @@ if (config.build.productionGzip) {
   )
 }
 
-if (config.build.bundleAnalyzerReport) {
+if (config.buildExample.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }

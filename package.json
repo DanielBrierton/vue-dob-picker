@@ -3,10 +3,12 @@
   "version": "1.0.2",
   "description": "A simple Vue day, month and year date picker",
   "author": "Daniel Brierton <daniel@brierton.me>",
+  "main": "dist/vue-dob-picker.js",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
+    "build-example": "node build/build-example.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs"
