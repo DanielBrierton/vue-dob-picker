@@ -1,8 +1,9 @@
 <template>
   <div class="vue-dob-picker">
     <label :class="labelClass" :style="{ flex: proportions[0] }">
-      <div v-if="showLabels !== 'false'">Date</div>
+      <div v-if="showLabels !== 'false'">{{ labels[0] }}</div>
       <select v-model="day" :class="selectClass">
+        <option v-if="placeholders[0]" value="null" disabled="disabled">{{ placeholders[0] }}</option>
         <option v-for="(item, index) in new Array(28)" :value="index + 1">{{ index + 1 }}</option>
         <option value="29" v-if="daysInMonth >= 29 || isLeapYear">29</option>
         <option value="30" v-if="daysInMonth >= 30">30</option>
@@ -10,14 +11,16 @@
       </select>
     </label>
     <label :class="labelClass" :style="{ flex: proportions[1] }">
-      <div v-if="showLabels !== 'false'">Month</div>
+      <div v-if="showLabels !== 'false'">{{ labels[1] }}</div>
       <select v-model="month" :class="selectClass">
-        <option v-for="(item, index) in new Array(12)" :value="index + 1">{{ getDisplayedMonth(index) }}</option>
+        <option v-if="placeholders[1]" value="null" disabled="disabled">{{ placeholders[1] }}</option>
+        <option v-for="(item, index) in new Array(12)" :value="index">{{ getDisplayedMonth(index) }}</option>
       </select>
     </label>
     <label :class="labelClass" :style="{ flex: proportions[2] }">
-      <div v-if="showLabels !== 'false'">Year</div>
+      <div v-if="showLabels !== 'false'">{{ labels[2] }}</div>
       <select v-model="year" :class="selectClass">
+        <option v-if="placeholders[2]" value="null" disabled="disabled">{{ placeholders[2] }}</option>
         <option v-for="(item, index) in new Array(100)" :value="index + startingYear + 1">{{ index + startingYear + 1 }}</option>
       </select>
     </label>
@@ -32,7 +35,6 @@ export default {
   props: {
     value: {
       type: Date,
-      required: true,
     },
     selectClass: String,
     labelClass: String,
@@ -49,46 +51,41 @@ export default {
       type: Array,
       default: () => [1, 1, 2],
     },
+    labels: {
+      type: Array,
+      default: () => ['Date', 'Month', 'Year'],
+    },
+    placeholders: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
-      date: null,
+      day: null,
+      month: null,
+      year: null,
       startingYear: (new Date()).getFullYear() - 100,
     };
   },
   computed: {
-    day: {
+    date: {
       get() {
-        return this.date.getDate();
+        if (this.day && this.month && this.year) {
+          return new Date(this.year, this.month, this.day, 0, 0, 0, 0);
+        }
+        return null;
       },
       set(val) {
-        const newDate = new Date(this.date);
-        newDate.setDate(val);
-        this.date = newDate;
-      },
-    },
-    month: {
-      get() {
-        return this.date.getMonth() + 1;
-      },
-      set(val) {
-        const newDate = new Date(this.date);
-        newDate.setMonth(val - 1);
-        this.date = newDate;
-      },
-    },
-    year: {
-      get() {
-        return this.date.getFullYear();
-      },
-      set(val) {
-        const newDate = new Date(this.date);
-        newDate.setFullYear(val);
-        this.date = newDate;
+        if (val) {
+          this.day = val.getDate();
+          this.month = val.getMonth();
+          this.year = val.getFullYear();
+        }
       },
     },
     daysInMonth() {
-      return datesInMonths[this.month - 1];
+      return datesInMonths[this.month];
     },
     isLeapYear() {
       return ((this.year % 4 === 0) && (this.year % 100 !== 0)) || (this.year % 400 === 0);
@@ -96,7 +93,9 @@ export default {
   },
   watch: {
     date() {
-      this.$emit('input', this.date);
+      if (this.date) {
+        this.$emit('input', this.date);
+      }
     },
   },
   methods: {

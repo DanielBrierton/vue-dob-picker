@@ -7,6 +7,7 @@ new Vue({
       vueDobPicker
   },
   data: {
-    date: new Date(1970, 0, 1, 0, 0, 0, 0)
+    date: new Date(1970, 0, 1, 0, 0, 0, 0),
+    placeholderDate: null,
   }
 });
