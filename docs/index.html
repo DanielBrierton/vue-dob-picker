@@ -48,6 +48,17 @@
         <vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :proportions="[1, 2, 1]"></vue-dob-picker>
         <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :proportions="[1, 2, 1]"&gt;&lt;/vue-dob-picker&gt;</code>
       </div>
+      <div>
+        <h2>Placeholders</h2>
+        {{ placeholderDate && placeholderDate.toString() }}
+        <vue-dob-picker v-model="placeholderDate" select-class="form-control" label-class="small" month-format="long" :placeholders="['Date', 'Month', 'Year']" show-labels="false"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :placeholders="['Date', 'Month', 'Year']" show-labels="false"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
+      <div>
+        <h2>Custom Labels</h2>
+        <vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :labels="['Select Date', 'Selected Month', 'Selected Year']"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :labels="['Select Date', 'Selected Month', 'Selected Year']"&gt;&lt;/vue-dob-picker&gt;</code>
+      </div>
     </div>
     <!-- built files will be auto injected -->
   <script type="text/javascript" src="./index.js"></script></body>
