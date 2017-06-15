@@ -1,6 +1,6 @@
 {
   "name": "vue-dob-picker",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A simple Vue day, month and year date picker",
   "author": "Daniel Brierton <daniel@brierton.me>",
   "main": "dist/vue-dob-picker.js",
