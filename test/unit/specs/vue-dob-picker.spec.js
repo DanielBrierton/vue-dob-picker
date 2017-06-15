@@ -63,6 +63,22 @@ describe('vue-dob-picker.vue', () => {
         expect(vm.date.toString()).to.equal((new Date(1990, 5, 5, 0, 0, 0, 0)).toString());
       });
 
+      it('should set day to null if greater than daysInMonth', () => {
+        // ARRANGE
+        vm.day = 31;
+        vm.month = 0;
+        vm.year = 2016;
+
+        // ASSERT
+        expect(vm.date.toString()).to.equal((new Date(2016, 0, 31, 0, 0, 0, 0)).toString());
+
+        // ACT
+        vm.month = 1;
+
+        // ASSERT
+        expect(vm.date).to.equal(null);
+      });
+
       it('should set day, month and year when value is set', () => {
         // ARRANGE
         vm.date = new Date(1990, 5, 5, 0, 0, 0, 0);

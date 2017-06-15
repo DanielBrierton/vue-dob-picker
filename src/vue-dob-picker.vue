@@ -71,7 +71,14 @@ export default {
   computed: {
     date: {
       get() {
-        if (this.day && this.month && this.year) {
+        let daysInMonth = this.daysInMonth;
+        if (this.isLeapYear && this.month === 1) {
+          daysInMonth += 1;
+        }
+        if (this.day > daysInMonth) {
+          this.day = null;
+        }
+        if (this.day !== null && this.month !== null && this.year !== null) {
           return new Date(this.year, this.month, this.day, 0, 0, 0, 0);
         }
         return null;
