@@ -96,6 +96,13 @@ describe('vue-dob-picker.vue', () => {
         // ASSERT
         expect(vm.daysInMonth).to.equal(28);
       });
+
+      it('should return 31 when no month is specified', () => {
+        // ARRANGE
+        vm.month = null;
+
+        expect(vm.daysInMonth).to.equal(31);
+      });
     });
 
     describe('isLeapYear()', () => {

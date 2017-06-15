@@ -85,7 +85,7 @@ export default {
       },
     },
     daysInMonth() {
-      return datesInMonths[this.month];
+      return datesInMonths[this.month] || 31;
     },
     isLeapYear() {
       return ((this.year % 4 === 0) && (this.year % 100 !== 0)) || (this.year % 400 === 0);
