@@ -11,7 +11,7 @@ describe('vue-dob-picker.vue', () => {
 
   it('data', () => {
     expect(vm.date).to.equal(null);
-    expect(vm.startingYear).to.equal((new Date()).getFullYear() - 100);
+    expect(vm.currentYear).to.equal((new Date()).getFullYear());
   });
 
   it('props', () => {

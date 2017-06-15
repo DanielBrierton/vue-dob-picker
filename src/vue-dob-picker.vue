@@ -21,7 +21,7 @@
       <div v-if="showLabels !== 'false'">{{ labels[2] }}</div>
       <select v-model="year" :class="selectClass">
         <option v-if="placeholders[2]" value="null" disabled="disabled">{{ placeholders[2] }}</option>
-        <option v-for="(item, index) in new Array(100)" :value="index + startingYear + 1">{{ index + startingYear + 1 }}</option>
+        <option v-for="(item, index) in new Array(100)" :value="currentYear - index">{{ currentYear - index }}</option>
       </select>
     </label>
   </div>
@@ -65,7 +65,7 @@ export default {
       day: null,
       month: null,
       year: null,
-      startingYear: (new Date()).getFullYear() - 100,
+      currentYear: (new Date()).getFullYear(),
     };
   },
   computed: {
