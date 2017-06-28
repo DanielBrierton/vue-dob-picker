@@ -138,6 +138,90 @@ describe('vue-dob-picker.vue', () => {
         expect(vm.isLeapYear).to.equal(false);
       });
     });
+
+    describe('dayClass()', () => {
+      it('should return selectClass if selectPlaceholderClass not set', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+
+        // ASSERT
+        expect(vm.dayClass).to.equal('selectClass');
+      });
+      it('should return selectClass if selectPlaceholderClass is set, but day is not null', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+        vm.selectPlaceholderClass = 'selectPlaceholderClass';
+        vm.day = 1;
+
+        // ASSERT
+        expect(vm.dayClass).to.equal('selectClass');
+      });
+      it('should return selectPlaceholderClass if selectPlaceholderClass is set and day is null', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+        vm.selectPlaceholderClass = 'selectPlaceholderClass';
+        vm.day = null;
+
+        // ASSERT
+        expect(vm.dayClass).to.equal('selectPlaceholderClass');
+      });
+    });
+
+    describe('monthClass()', () => {
+      it('should return selectClass if selectPlaceholderClass not set', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+
+        // ASSERT
+        expect(vm.monthClass).to.equal('selectClass');
+      });
+      it('should return selectClass if selectPlaceholderClass is set, but month is not null', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+        vm.selectPlaceholderClass = 'selectPlaceholderClass';
+        vm.month = 1;
+
+        // ASSERT
+        expect(vm.monthClass).to.equal('selectClass');
+      });
+      it('should return selectPlaceholderClass if selectPlaceholderClass is set and month is null', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+        vm.selectPlaceholderClass = 'selectPlaceholderClass';
+        vm.month = null;
+
+        // ASSERT
+        expect(vm.monthClass).to.equal('selectPlaceholderClass');
+      });
+    });
+
+    describe('yearClass()', () => {
+      it('should return selectClass if selectPlaceholderClass not set', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+
+        // ASSERT
+        expect(vm.yearClass).to.equal('selectClass');
+      });
+      it('should return selectClass if selectPlaceholderClass is set, but year is not null', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+        vm.selectPlaceholderClass = 'selectPlaceholderClass';
+        vm.year = 1;
+
+        // ASSERT
+        expect(vm.yearClass).to.equal('selectClass');
+      });
+      it('should return selectPlaceholderClass if selectPlaceholderClass is set and year is null', () => {
+        // ARRANGE
+        vm.selectClass = 'selectClass';
+        vm.selectPlaceholderClass = 'selectPlaceholderClass';
+        vm.year = null;
+
+        // ASSERT
+        expect(vm.yearClass).to.equal('selectPlaceholderClass');
+      });
+    });
   });
 
   describe('watch', () => {

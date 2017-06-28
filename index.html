@@ -8,6 +8,10 @@
       body {
         padding: 16px;
       }
+
+      .form-control-placeholder {
+        color: #aaa;
+      }
     </style>
   </head>
   <body>
@@ -51,8 +55,8 @@
       <div>
         <h2>Placeholders</h2>
         {{ placeholderDate && placeholderDate.toString() }}
-        <vue-dob-picker v-model="placeholderDate" select-class="form-control" label-class="small" month-format="long" :placeholders="['Date', 'Month', 'Year']" show-labels="false"></vue-dob-picker>
-        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" label-class="small" month-format="long" :placeholders="['Date', 'Month', 'Year']" show-labels="false"&gt;&lt;/vue-dob-picker&gt;</code>
+        <vue-dob-picker v-model="placeholderDate" select-class="form-control" select-placeholder-class="form-control form-control-placeholder" month-format="long" :placeholders="['Date', 'Month', 'Year']" show-labels="false"></vue-dob-picker>
+        <code>&lt;vue-dob-picker v-model="date" select-class="form-control" select-placeholder-class="form-control form-control-placeholder" month-format="long" :placeholders="['Date', 'Month', 'Year']" show-labels="false"&gt;&lt;/vue-dob-picker&gt;</code>
       </div>
       <div>
         <h2>Custom Labels</h2>
