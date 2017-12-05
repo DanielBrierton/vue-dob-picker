@@ -2,7 +2,7 @@
   <div class="vue-dob-picker">
     <label :class="labelClass" :style="{ flex: proportions[0] }">
       <div v-if="showLabels !== 'false'">{{ labels[0] }}</div>
-      <select v-model="day" :class="dayClass">
+      <select v-model="day" :class="dayClass" @blur="onBlur" @focus="onFocus">
         <option v-if="placeholders[0]" value="null" disabled="disabled">{{ placeholders[0] }}</option>
         <option v-for="(item, index) in new Array(28)" :value="index + 1">{{ index + 1 }}</option>
         <option value="29" v-if="daysInMonth >= 29 || isLeapYear">29</option>
@@ -12,14 +12,14 @@
     </label>
     <label :class="labelClass" :style="{ flex: proportions[1] }">
       <div v-if="showLabels !== 'false'">{{ labels[1] }}</div>
-      <select v-model="month" :class="monthClass">
+      <select v-model="month" :class="monthClass" @blur="onBlur" @focus="onFocus">
         <option v-if="placeholders[1]" value="null" disabled="disabled">{{ placeholders[1] }}</option>
         <option v-for="(item, index) in new Array(12)" :value="index">{{ getDisplayedMonth(index) }}</option>
       </select>
     </label>
     <label :class="labelClass" :style="{ flex: proportions[2] }">
       <div v-if="showLabels !== 'false'">{{ labels[2] }}</div>
-      <select v-model="year" :class="yearClass">
+      <select v-model="year" :class="yearClass" @blur="onBlur" @focus="onFocus">
         <option v-if="placeholders[2]" value="null" disabled="disabled">{{ placeholders[2] }}</option>
         <option v-for="(item, index) in new Array(100)" :value="currentYear - index">{{ currentYear - index }}</option>
       </select>
@@ -67,6 +67,7 @@ export default {
       month: null,
       year: null,
       currentYear: (new Date()).getFullYear(),
+      blurTimeout: null,
     };
   },
   computed: {
@@ -129,6 +130,14 @@ export default {
       const monthDateObj = new Date(2000, monthNum, 1);
       const locale = this.locale || navigator.language;
       return monthDateObj.toLocaleString(locale, { month: this.monthFormat });
+    },
+    onBlur() {
+      this.blurTimeout = window.setTimeout(() => {
+        this.$emit('blur');
+      }, 50);
+    },
+    onFocus() {
+      window.clearTimeout(this.blurTimeout);
     },
   },
   created() {

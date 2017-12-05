@@ -3,10 +3,16 @@ import VueDobPicker from '@/vue-dob-picker';
 
 
 describe('vue-dob-picker.vue', () => {
+  let sandbox;
   let vm;
 
   beforeEach(() => {
+    sandbox = sinon.sandbox.create();
     vm = vueUnitHelper(VueDobPicker);
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it('data', () => {
@@ -229,7 +235,7 @@ describe('vue-dob-picker.vue', () => {
       it('should emit an "input" event with the updated date', () => {
         // ARRANGE
         const mockDate = new Date(1990, 5, 5, 0, 0, 0, 0);
-        const emitStub = sinon.stub();
+        const emitStub = sandbox.stub();
         vm.$emit = emitStub;
         vm.date = mockDate;
 
@@ -274,16 +280,6 @@ describe('vue-dob-picker.vue', () => {
         expect(vm.getDisplayedMonth(1)).to.equal('02');
       });
 
-      it('should display the month in two digit format in arab digits', () => {
-        // ARRANGE
-        vm.monthFormat = '2-digit';
-        vm.locale = 'ar-sa';
-
-        // ACT + ASSERT
-        expect(vm.getDisplayedMonth(0)).to.equal('٠١');
-        expect(vm.getDisplayedMonth(1)).to.equal('٠٢');
-      });
-
       it('should display the month in the long Chinese', () => {
         // ARRANGE
         vm.monthFormat = 'long';
@@ -292,6 +288,43 @@ describe('vue-dob-picker.vue', () => {
         // ACT + ASSERT
         expect(vm.getDisplayedMonth(0)).to.equal('一月');
         expect(vm.getDisplayedMonth(1)).to.equal('二月');
+      });
+    });
+
+    describe('onBlur()', () => {
+      it('should emit a blur event after 50ms and assign the timeout to blurTimeout', () => {
+        // ARRANGE
+        sandbox.stub(window, 'setTimeout').callsFake((cb) => {
+          cb();
+          return 'foo';
+        });
+        const emitStub = sandbox.stub();
+        vm.$emit = emitStub;
+
+        // ACT
+        vm.onBlur();
+
+        // ASSERT
+        expect(window.setTimeout).to.have.been.calledOnce;
+        expect(window.setTimeout).to.have.been.calledWith(sinon.match.func, 50);
+        expect(vm.$emit).to.have.been.calledOnce;
+        expect(vm.$emit).to.have.been.calledWith('blur');
+        expect(vm.blurTimeout).to.equal('foo');
+      });
+    });
+
+    describe('onFocus()', () => {
+      it('should clear any existing blur timeout', () => {
+        // ARRANGE
+        sandbox.stub(window, 'clearTimeout');
+        vm.blurTimeout = 'foo';
+
+        // ACT
+        vm.onFocus();
+
+        // ASSERT
+        expect(window.clearTimeout).to.have.been.calledOnce;
+        expect(window.clearTimeout).to.have.been.calledWith('foo');
       });
     });
   });
